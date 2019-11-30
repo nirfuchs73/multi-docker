@@ -1,0 +1,23 @@
+language: generic
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t nirfuchs73/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true nirfuchs73/react-test npm run test
+
+after_success:
+  - docker build nirfuchs73/multi-client ./client
+  - docker build nirfuchs73/multi-nginx ./nginx
+  - docker build nirfuchs73/multi-server ./server
+  - docker build nirfuchs73/multi-worker ./worker
+  # Log in to docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --passord-stdin
+  # Take those images and push them to docker hub
+  - docker push nirfuchs73/multi-client
+  - docker push nirfuchs73/multi-nginx
+  - docker push nirfuchs73/multi-server
+  - docker push nirfuchs73/multi-worker
