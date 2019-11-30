@@ -15,7 +15,7 @@ after_success:
   - docker build -t nirfuchs73/multi-server ./server
   - docker build -t nirfuchs73/multi-worker ./worker
   # Log in to docker CLI
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --passord-stdin
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to docker hub
   - docker push nirfuchs73/multi-client
   - docker push nirfuchs73/multi-nginx
