@@ -21,3 +21,17 @@ after_success:
   - docker push nirfuchs73/multi-nginx
   - docker push nirfuchs73/multi-server
   - docker push nirfuchs73/multi-worker
+deploy:
+  edge: true
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "multi-docker"
+  env: "MultiDocker-env"
+  bucket_name: "elasticbeanstalk-us-east-2-595032649461"
+  bucket_path: "multi-docker"
+  on:
+    branch: master
+  access_key_id:
+    secure: "$AWS_ACCESS_KEY"
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
