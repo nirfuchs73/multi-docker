@@ -10,14 +10,14 @@ script:
   - docker run -e CI=true nirfuchs73/react-test npm run test
 
 after_success:
-  - docker build -t nirfuchs73/multi-client:v6 ./client
+  - docker build -t nirfuchs73/multi-client:v7 ./client
   - docker build -t nirfuchs73/multi-nginx ./nginx
   - docker build -t nirfuchs73/multi-server ./server
   - docker build -t nirfuchs73/multi-worker ./worker
   # Log in to docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to docker hub
-  - docker push nirfuchs73/multi-client:v6
+  - docker push nirfuchs73/multi-client:v7
   - docker push nirfuchs73/multi-nginx
   - docker push nirfuchs73/multi-server
   - docker push nirfuchs73/multi-worker
